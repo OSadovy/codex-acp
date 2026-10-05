@@ -128,6 +128,11 @@ describe("Session config options", () => {
                     description: "Only ask for actions detected as potentially unsafe",
                 },
                 {
+                    value: "agent-full-access-auto-review",
+                    name: "Full access, auto review",
+                    description: "Unrestricted access without a sandbox; auto review checks actions detected as potentially unsafe",
+                },
+                {
                     value: "agent-full-access",
                     name: "Full access",
                     description: "Unrestricted access to the internet and any file on your computer",
@@ -138,7 +143,7 @@ describe("Session config options", () => {
             AgentMode.all().map(m => m.id)
         );
         expect(response.modes?.availableModes.map(mode => mode.id)).toEqual([
-            "read-only", "workspace-write", "agent", "agent-full-access",
+            "read-only", "workspace-write", "agent", "agent-full-access-auto-review", "agent-full-access",
         ]);
     });
 
@@ -263,6 +268,9 @@ describe("Session config options", () => {
         {selection: "INITIAL_AGENT_MODE", initialMode: "workspace-write", modeId: "workspace-write"},
         {selection: "session/set_mode", initialMode: "read-only", modeId: "workspace-write"},
         {selection: "session/set_config_option", initialMode: "read-only", modeId: "workspace-write"},
+        {selection: "INITIAL_AGENT_MODE", initialMode: "agent-full-access-auto-review", modeId: "agent-full-access-auto-review"},
+        {selection: "session/set_mode", initialMode: "agent-full-access", modeId: "agent-full-access-auto-review"},
+        {selection: "session/set_config_option", initialMode: "agent", modeId: "agent-full-access-auto-review"},
     ])("applies $modeId permissions after $selection from $initialMode", async ({selection, initialMode, modeId}) => {
         vi.stubEnv("INITIAL_AGENT_MODE", initialMode);
         const {fast} = buildModels();

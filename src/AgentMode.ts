@@ -92,6 +92,17 @@ export class AgentMode {
         "danger-full-access",
     );
 
+    static readonly AgentFullAccessAutoReview = new AgentMode(
+        "agent-full-access-auto-review",
+        "Full access, auto review",
+        "Unrestricted access without a sandbox; auto review checks actions detected as potentially unsafe",
+        "full_access",
+        "on-request",
+        "auto_review",
+        {"type": "dangerFullAccess"},
+        "danger-full-access",
+    );
+
     static DEFAULT_AGENT_MODE = AgentMode.Agent;
 
     /** Only AIR gets the mode kind, in `_meta.jetbrains.air.kind`. */
@@ -133,7 +144,13 @@ export class AgentMode {
     }
 
     static all(): AgentMode[] {
-        return [AgentMode.ReadOnly, AgentMode.WorkspaceWrite, AgentMode.Agent, AgentMode.AgentFullAccess];
+        return [
+            AgentMode.ReadOnly,
+            AgentMode.WorkspaceWrite,
+            AgentMode.Agent,
+            AgentMode.AgentFullAccessAutoReview,
+            AgentMode.AgentFullAccess,
+        ];
     }
 
     static find(modeId: string): AgentMode | null {

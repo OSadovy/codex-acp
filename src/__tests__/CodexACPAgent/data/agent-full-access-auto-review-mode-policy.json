@@ -1,0 +1,9 @@
+[
+  {
+    "approvalPolicy": "on-request",
+    "approvalsReviewer": "auto_review",
+    "sandboxPolicy": {
+      "type": "dangerFullAccess"
+    }
+  }
+]
